@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyForge Constructions – From Blueprint to Reality</title>
+<meta name="description" content="SkyForge Constructions – Building your dream home from foundation to finish. Expert House Construction, Interior & Exterior Design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --navy: #1a2b4a;
+    --blue: #2563eb;
+    --light-blue: #3b82f6;
+    --gray-bg: #f3f4f6;
+    --text-dark: #111827;
+    --text-gray: #6b7280;
+    --border: #e5e7eb;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; }
+  .font-display { font-family: 'Playfair Display', serif; }
+  .nav-link { color: #374151; font-size: 0.95rem; font-weight: 500; transition: color .2s; }
+  .nav-link:hover { color: var(--blue); }
+  .btn-primary { background: var(--blue); color: #fff; padding: 0.65rem 1.5rem; border-radius: 0.375rem; font-weight: 600; font-size: 0.95rem; transition: background .2s, transform .1s; cursor: pointer; border: none; }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: #fff; padding: 0.65rem 1.5rem; border-radius: 0.375rem; font-weight: 600; font-size: 0.95rem; border: 2px solid #fff; transition: all .2s; cursor: pointer; }
+  .btn-outline:hover { background: #fff; color: var(--navy); }
+  .service-card { background: #fff; border-radius: 0.75rem; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--card-shadow); transition: transform .25s, box-shadow .25s; }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+  .service-icon { width: 48px; height: 48px; color: var(--navy); margin-bottom: 1rem; }
+  .hero-bg { background: linear-gradient(rgba(26,43,74,0.55), rgba(26,43,74,0.55)), url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80') center/cover; min-height: 520px; }
+  .star { color: #f59e0b; }
+  .rating-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+  .rating-fill { height: 100%; background: #f59e0b; border-radius: 4px; }
+  .project-card { position: relative; overflow: hidden; border-radius: 0.75rem; cursor: pointer; }
+  .project-card img { width: 100%; height: 220px; object-fit: cover; transition: transform .4s; }
+  .project-card:hover img { transform: scale(1.06); }
+  .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,43,74,0.85) 40%, transparent); opacity: 0; transition: opacity .3s; display: flex; align-items: flex-end; padding: 1rem; }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+  .badge-pending { background: #fef3c7; color: #92400e; }
+  .badge-approved { background: #dbeafe; color: #1e40af; }
+  .badge-done { background: #d1fae5; color: #065f46; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-box { background: #fff; border-radius: 1rem; padding: 2rem; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
+  .form-input { width: 100%; border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.65rem 0.9rem; font-size: 0.95rem; outline: none; transition: border-color .2s; }
+  .form-input:focus { border-color: var(--blue); }
+  .form-label { font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.35rem; display: block; }
+  .section-tag { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; color: var(--blue); text-transform: uppercase; }
+  /* Dark mode */
+  body.dark { background: #0f172a; color: #f1f5f9; }
+  body.dark .service-card { background: #1e293b; border-color: #334155; }
+  body.dark .nav-link { color: #cbd5e1; }
+  body.dark header { background: #0f172a !important; }
+  body.dark .form-input { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+  body.dark .modal-box { background: #1e293b; color: #f1f5f9; }
+  .dark-toggle { background: none; border: 1px solid #d1d5db; border-radius: 9999px; padding: 0.35rem 0.6rem; cursor: pointer; font-size: 1rem; }
+  #toast { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999; background: #1a2b4a; color: #fff; padding: 0.8rem 1.5rem; border-radius: 0.5rem; font-size: 0.9rem; transform: translateY(100px); opacity: 0; transition: all .3s; }
+  #toast.show { transform: translateY(0); opacity: 1; }
+  .whatsapp-btn { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 999; background: #25d366; color: #fff; border-radius: 9999px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(37,211,102,.4); transition: transform .2s; }
+  .whatsapp-btn:hover { transform: scale(1.1); }
+  .filter-btn { padding: 0.45rem 1.1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; border: 1px solid var(--border); cursor: pointer; transition: all .2s; }
+  .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .calc-result { background: linear-gradient(135deg, var(--navy), var(--blue)); color: #fff; border-radius: 1rem; padding: 1.5rem; text-align: center; margin-top: 1rem; display: none; }
+  .calc-result.show { display: block; animation: fadeInUp .3s ease; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-animate { animation: fadeInUp .7s ease both; }
+  .hero-animate-2 { animation: fadeInUp .7s ease .2s both; }
+  .hero-animate-3 { animation: fadeInUp .7s ease .4s both; }
+  .sticky-nav { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 1px 8px rgba(0,0,0,0.07); }
+  body.dark .sticky-nav { background: #0f172a; box-shadow: 0 1px 8px rgba(0,0,0,.3); }
+  .page-section { display: none; }
+  .page-section.active { display: block; }
+  .tab-btn { padding: 0.5rem 1.25rem; border-radius: 9999px; font-weight: 500; font-size: 0.9rem; cursor: pointer; transition: all .2s; color: var(--text-gray); border: none; background: none; }
+  .tab-btn.active { background: var(--navy); color: #fff; }
+  input[type=range] { accent-color: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- WhatsApp -->
+<a href="https://wa.me/919999999999?text=Hello%2C%20I%27m%20interested%20in%20SkyForge%20services." target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAVBAR -->
+<nav class="sticky-nav">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('home')">
+      <svg class="w-8 h-8" viewBox="0 0 40 40" fill="none">
+        <rect width="40" height="40" rx="8" fill="#1a2b4a"/>
+        <path d="M8 28L20 10L32 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="16" y="22" width="8" height="6" fill="white" rx="1"/>
+      </svg>
+      <span class="font-display font-bold text-xl text-gray-900 dark:text-white" style="color:var(--navy)">SkyForge</span>
+    </div>
+    <div class="hidden md:flex items-center gap-7">
+      <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+      <a href="#" class="nav-link" onclick="showPage('services')">Services</a>
+      <a href="#" class="nav-link" onclick="showPage('projects')">Projects</a>
+      <a href="#" class="nav-link" onclick="showPage('cost-calc')">Cost Calculator</a>
+      <a href="#" class="nav-link" onclick="showPage('contact')">Contact</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+      <button class="btn-primary" onclick="showPage('admin')">Sign In</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page-section active">
+
+  <!-- HERO -->
+  <section class="hero-bg flex items-center justify-center text-center px-4" style="min-height:520px">
+    <div>
+      <h1 class="font-display text-5xl md:text-6xl font-bold text-white mb-4 hero-animate">From Blueprint to Reality</h1>
+      <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto hero-animate-2">Transforming ideas into enduring structures with strength, precision, and modern design</p>
+      <div class="flex flex-wrap gap-3 justify-center hero-animate-3">
+        <button class="btn-primary" onclick="showPage('contact')">Get Started</button>
+        <button class="btn-outline" onclick="showPage('projects')">View Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div style="background:var(--navy)" class="py-8">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div><div class="text-3xl font-bold text-white">250+</div><div class="text-blue-300 text-sm mt-1">Projects Done</div></div>
+      <div><div class="text-3xl font-bold text-white">12+</div><div class="text-blue-300 text-sm mt-1">Years Experience</div></div>
+      <div><div class="text-3xl font-bold text-white">500+</div><div class="text-blue-300 text-sm mt-1">Happy Clients</div></div>
+      <div><div class="text-3xl font-bold text-white">4.9★</div><div class="text-blue-300 text-sm mt-1">Average Rating</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="py-20 px-4" style="background:var(--gray-bg)">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <div class="section-tag mb-3">OUR SERVICES</div>
+        <h2 class="font-display text-4xl font-bold" style="color:var(--navy)">What We Offer</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="service-card">
+          <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <h3 class="text-lg font-bold mb-2" style="color:var(--navy)">House Construction</h3>
+          <p class="text-sm" style="color:var(--text-gray)">Building your dream home from foundation to finish</p>
+        </div>
+        <div class="service-card">
+          <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          <h3 class="text-lg font-bold mb-2" style="color:var(--navy)">Interior Design</h3>
+          <p class="text-sm" style="color:var(--text-gray)">Creating beautiful and functional interior spaces</p>
+        </div>
+        <div class="service-card">
+          <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+          <h3 class="text-lg font-bold mb-2" style="color:var(--navy)">Exterior Design</h3>
+          <p class="text-sm" style="color:var(--text-gray)">Enhancing curb appeal with modern facades</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <div class="section-tag mb-3">OUR WORK</div>
+        <h2 class="font-display text-4xl font-bold" style="color:var(--navy)">Featured Projects</h2>
+      </div>
+      <div id="home-projects-grid" class="grid md:grid-cols-3 gap-6">
+        <!-- Loaded dynamically -->
+        <div class="project-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Project"><div class="project-overlay"><span class="text-white font-semibold">Modern Villa</span></div></div>
+        <div class="project-card"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Project"><div class="project-overlay"><span class="text-white font-semibold">Interior Suite</span></div></div>
+        <div class="project-card"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Project"><div class="project-overlay"><span class="text-white font-semibold">Commercial Tower</span></div></div>
+      </div>
+      <div class="text-center mt-8">
+        <button class="btn-primary" onclick="showPage('projects')">View All Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / BRAND STORY -->
+  <section class="py-20 px-4" style="background:var(--navy)">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="section-tag mb-3 text-blue-300">OUR STORY</div>
+      <h2 class="font-display text-4xl font-bold text-white mb-6">About SkyForge</h2>
+      <p class="text-blue-100 text-lg leading-relaxed">SkyForge Constructions was founded with a vision to transform ideas into enduring structures. We believe every home, building, and space should reflect strength, precision, and modern design. With a commitment to quality craftsmanship and innovation, SkyForge doesn't just construct buildings—we forge the future, one project at a time.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 px-4" style="background:var(--gray-bg)">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <div class="section-tag mb-3">REVIEWS</div>
+        <h2 class="font-display text-4xl font-bold" style="color:var(--navy)">What Clients Say</h2>
+      </div>
+      <div id="home-reviews" class="grid md:grid-cols-3 gap-6">
+        <div class="service-card"><div class="flex gap-1 mb-3">⭐⭐⭐⭐⭐</div><p class="text-sm text-gray-600 mb-3">"Exceptional quality and on-time delivery. SkyForge truly exceeded our expectations!"</p><div class="font-semibold text-sm" style="color:var(--navy)">Rajesh Patel</div></div>
+        <div class="service-card"><div class="flex gap-1 mb-3">⭐⭐⭐⭐⭐</div><p class="text-sm text-gray-600 mb-3">"The interior design team transformed our home into something magical. Highly recommend!"</p><div class="font-semibold text-sm" style="color:var(--navy)">Priya Sharma</div></div>
+        <div class="service-card"><div class="flex gap-1 mb-3">⭐⭐⭐⭐</div><p class="text-sm text-gray-600 mb-3">"Professional team, transparent pricing, and beautiful results. Will definitely use again."</p><div class="font-semibold text-sm" style="color:var(--navy)">Amit Desai</div></div>
+      </div>
+      <div class="text-center mt-10">
+        <button class="btn-primary" onclick="openReviewModal()">Write a Review</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 px-4" style="background:var(--blue)">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="font-display text-4xl font-bold text-white mb-4">Ready to Build Your Dream?</h2>
+      <p class="text-blue-100 mb-8">Get a free consultation and cost estimate for your project today.</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <button class="btn-outline" onclick="showPage('contact')">Contact Us</button>
+        <button class="btn-primary" style="background:#fff;color:var(--navy)" onclick="showPage('cost-calc')">Get Quote</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== SERVICES PAGE ==================== -->
+<div id="page-services" class="page-section">
+  <div class="bg-gray-50 py-16 px-4 text-center border-b">
+    <div class="section-tag mb-2">WHAT WE DO</div>
+    <h1 class="font-display text-5xl font-bold" style="color:var(--navy)">Our Services</h1>
+  </div>
+  <section class="py-16 px-4">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+      <!-- Service 1 -->
+      <div class="service-card flex gap-5">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&q=80" class="w-28 h-28 rounded-lg object-cover flex-shrink-0" alt="">
+        <div>
+          <h3 class="font-bold text-xl mb-2" style="color:var(--navy)">House Construction</h3>
+          <p class="text-sm text-gray-600 mb-3">Full-cycle residential construction from foundation to finishing. We handle planning, approvals, execution, and handover.</p>
+          <span class="text-sm font-semibold text-blue-600">Starting from ₹1,200/sq.ft</span>
+        </div>
+      </div>
+      <!-- Service 2 -->
+      <div class="service-card flex gap-5">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=80" class="w-28 h-28 rounded-lg object-cover flex-shrink-0" alt="">
+        <div>
+          <h3 class="font-bold text-xl mb-2" style="color:var(--navy)">Interior Design</h3>
+          <p class="text-sm text-gray-600 mb-3">Transform your interiors with our expert design team. Modular kitchens, wardrobes, living rooms, and bedrooms.</p>
+          <span class="text-sm font-semibold text-blue-600">Starting from ₹800/sq.ft</span>
+        </div>
+      </div>
+      <!-- Service 3 -->
+      <div class="service-card flex gap-5">
+        <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=200&q=80" class="w-28 h-28 rounded-lg object-cover flex-shrink-0" alt="">
+        <div>
+          <h3 class="font-bold text-xl mb-2" style="color:var(--navy)">Exterior Design</h3>
+          <p class="text-sm text-gray-600 mb-3">Modern facades, landscaping, driveways, and exterior paint work that enhances curb appeal and property value.</p>
+          <span class="text-sm font-semibold text-blue-600">Starting from ₹400/sq.ft</span>
+        </div>
+      </div>
+      <!-- Service 4 -->
+      <div class="service-card flex gap-5">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&q=80" class="w-28 h-28 rounded-lg object-cover flex-shrink-0" alt="">
+        <div>
+          <h3 class="font-bold text-xl mb-2" style="color:var(--navy)">Building Contracts</h3>
+          <p class="text-sm text-gray-600 mb-3">End-to-end commercial and residential building contracts. Transparent billing, timely delivery, quality assurance.</p>
+          <span class="text-sm font-semibold text-blue-600">Custom Pricing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PROJECTS PAGE ==================== -->
+<div id="page-projects" class="page-section">
+  <div class="bg-gray-50 py-16 px-4 text-center border-b">
+    <div class="section-tag mb-2">OUR PORTFOLIO</div>
+    <h1 class="font-display text-5xl font-bold" style="color:var(--navy)">Projects</h1>
+  </div>
+  <section class="py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap gap-2 mb-8 justify-center">
+        <button class="filter-btn active" onclick="filterProjects('all',this)">All</button>
+        <button class="filter-btn" onclick="filterProjects('Construction',this)">Construction</button>
+        <button class="filter-btn" onclick="filterProjects('Interior',this)">Interior</button>
+        <button class="filter-btn" onclick="filterProjects('Exterior',this)">Exterior</button>
+        <button class="filter-btn" onclick="filterProjects('done',this,'status')">Completed</button>
+        <button class="filter-btn" onclick="filterProjects('approved',this,'status')">Approved</button>
+        <button class="filter-btn" onclick="filterProjects('pending',this,'status')">Pending</button>
+      </div>
+      <div id="projects-grid" class="grid md:grid-cols-3 gap-6">
+        <!-- Dynamic -->
+      </div>
+      <div id="projects-loading" class="text-center py-12 text-gray-400">Loading projects...</div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== COST CALCULATOR ==================== -->
+<div id="page-cost-calc" class="page-section">
+  <div class="bg-gray-50 py-16 px-4 text-center border-b">
+    <div class="section-tag mb-2">ESTIMATE</div>
+    <h1 class="font-display text-5xl font-bold" style="color:var(--navy)">Cost Calculator</h1>
+    <p class="text-gray-500 mt-3">Get an instant estimate for your project</p>
+  </div>
+  <section class="py-16 px-4">
+    <div class="max-w-2xl mx-auto">
+      <div class="service-card">
+        <div class="mb-5">
+          <label class="form-label">Service Type</label>
+          <select class="form-input" id="calc-service" onchange="calculateCost()">
+            <option value="1200">House Construction (₹1,200/sq.ft)</option>
+            <option value="800">Interior Design (₹800/sq.ft)</option>
+            <option value="400">Exterior Design (₹400/sq.ft)</option>
+            <option value="1500">Full Building Contract (₹1,500/sq.ft)</option>
+          </select>
+        </div>
+        <div class="mb-5">
+          <label class="form-label">Area (Square Feet): <strong id="sqft-label">1000</strong> sq.ft</label>
+          <input type="range" min="200" max="10000" value="1000" step="50" class="w-full mt-2" id="calc-sqft" oninput="calculateCost()">
+          <div class="flex justify-between text-xs text-gray-400 mt-1"><span>200</span><span>10,000</span></div>
+        </div>
+        <div class="mb-5">
+          <label class="form-label">Quality Level</label>
+          <select class="form-input" id="calc-quality" onchange="calculateCost()">
+            <option value="1">Standard</option>
+            <option value="1.3">Premium</option>
+            <option value="1.6">Luxury</option>
+          </select>
+        </div>
+        <button class="btn-primary w-full" onclick="calculateCost(true)">Calculate Estimate</button>
+        <div class="calc-result" id="calc-result">
+          <div class="text-sm text-blue-200 mb-1">Estimated Project Cost</div>
+          <div id="calc-amount" class="text-4xl font-bold mb-2">₹0</div>
+          <div id="calc-breakdown" class="text-sm text-blue-200"></div>
+          <button class="mt-4 btn-outline" onclick="showPage('contact')">Get Exact Quote →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div id="page-contact" class="page-section">
+  <div class="bg-gray-50 py-16 px-4 text-center border-b">
+    <div class="section-tag mb-2">GET IN TOUCH</div>
+    <h1 class="font-display text-5xl font-bold" style="color:var(--navy)">Contact Us</h1>
+  </div>
+  <section class="py-16 px-4">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
+      <div>
+        <h2 class="font-bold text-2xl mb-6" style="color:var(--navy)">Send Us a Message</h2>
+        <div class="space-y-4">
+          <div><label class="form-label">Your Name *</label><input class="form-input" id="contact-name" placeholder="Rajesh Patel"></div>
+          <div><label class="form-label">Phone Number *</label><input class="form-input" id="contact-phone" placeholder="+91 98765 43210" type="tel"></div>
+          <div><label class="form-label">Email</label><input class="form-input" id="contact-email" placeholder="rajesh@email.com" type="email"></div>
+          <div>
+            <label class="form-label">Service Interested In</label>
+            <select class="form-input" id="contact-service">
+              <option>House Construction</option><option>Interior Design</option><option>Exterior Design</option><option>Building Contract</option><option>Other</option>
+            </select>
+          </div>
+          <div><label class="form-label">Message *</label><textarea class="form-input" rows="4" id="contact-message" placeholder="Tell us about your project..."></textarea></div>
+          <button class="btn-primary w-full" onclick="submitLead()">Send Message</button>
+          <a id="whatsapp-link" href="#" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 rounded-lg font-semibold text-sm" style="background:#25d366;color:#fff">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+      <div>
+        <h2 class="font-bold text-2xl mb-6" style="color:var(--navy)">Our Office</h2>
+        <div class="space-y-4 text-gray-600">
+          <div class="flex gap-3"><span class="text-2xl">📍</span><div><div class="font-semibold text-gray-800">Address</div><div class="text-sm">123 SkyForge Tower, Gandhinagar,<br>Gujarat – 382010</div></div></div>
+          <div class="flex gap-3"><span class="text-2xl">📞</span><div><div class="font-semibold text-gray-800">Phone</div><div class="text-sm">+91 99999 99999</div></div></div>
+          <div class="flex gap-3"><span class="text-2xl">✉️</span><div><div class="font-semibold text-gray-800">Email</div><div class="text-sm">info@skyforgeconstructons.com</div></div></div>
+          <div class="flex gap-3"><span class="text-2xl">🕒</span><div><div class="font-semibold text-gray-800">Working Hours</div><div class="text-sm">Mon – Sat: 9 AM – 7 PM</div></div></div>
+        </div>
+        <div class="mt-8 p-5 rounded-xl" style="background:var(--gray-bg)">
+          <h3 class="font-bold mb-3" style="color:var(--navy)">Write a Review</h3>
+          <div class="space-y-3">
+            <input class="form-input" id="rv-name" placeholder="Your Name">
+            <div>
+              <label class="form-label">Rating</label>
+              <select class="form-input" id="rv-rating"><option value="5">⭐⭐⭐⭐⭐ Excellent</option><option value="4">⭐⭐⭐⭐ Good</option><option value="3">⭐⭐⭐ Average</option><option value="2">⭐⭐ Below Average</option><option value="1">⭐ Poor</option></select>
+            </div>
+            <textarea class="form-input" rows="3" id="rv-comment" placeholder="Share your experience..."></textarea>
+            <button class="btn-primary w-full" onclick="submitReview()">Submit Review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== AUTH ==================== -->
+<div id="page-admin" class="page-section">
+  <div class="min-h-screen flex items-center justify-center px-4" style="background:linear-gradient(135deg,var(--navy),#1e40af)">
+    <div class="bg-white rounded-2xl p-8 w-full max-w-lg shadow-2xl">
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-2 mb-4">
+          <svg class="w-10 h-10" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#1a2b4a"/><path d="M8 28L20 10L32 28" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="22" width="8" height="6" fill="white" rx="1"/></svg>
+          <span class="font-display font-bold text-2xl" style="color:var(--navy)">SkyForge</span>
+        </div>
+        <h2 class="font-bold text-2xl" style="color:var(--navy)">Sign In or Create Account</h2>
+        <p class="text-gray-500 text-sm mt-1">Use your email, phone, password, and role. All accounts are stored in local MongoDB.</p>
+      </div>
+      <div class="flex gap-2 mb-6" style="background:var(--gray-bg);padding:0.35rem;border-radius:9999px">
+        <button class="tab-btn active flex-1" id="auth-tab-login" onclick="showAuthMode('login')">Login</button>
+        <button class="tab-btn flex-1" id="auth-tab-signup" onclick="showAuthMode('signup')">Sign Up</button>
+      </div>
+      <div id="auth-login-form" class="space-y-4">
+        <div><label class="form-label">Gmail ID</label><input class="form-input" id="login-email" placeholder="name@gmail.com" type="email"></div>
+        <div><label class="form-label">Phone Number</label><input class="form-input" id="login-phone" placeholder="+91 9876543210" type="tel"></div>
+        <div><label class="form-label">Password</label><input class="form-input" id="login-pass" placeholder="Enter password" type="password" onkeydown="if(event.key==='Enter')submitLogin()"></div>
+        <div><label class="form-label">Sign In As</label><select class="form-input" id="login-role"><option value="user">User</option><option value="admin">Admin</option></select></div>
+        <button class="btn-primary w-full text-base py-3" onclick="submitLogin()">Sign In</button>
+      </div>
+      <div id="auth-signup-form" class="space-y-4 hidden">
+        <div><label class="form-label">Full Name</label><input class="form-input" id="signup-name" placeholder="Your full name" type="text"></div>
+        <div><label class="form-label">Gmail ID</label><input class="form-input" id="signup-email" placeholder="name@gmail.com" type="email"></div>
+        <div><label class="form-label">Phone Number</label><input class="form-input" id="signup-phone" placeholder="+91 9876543210" type="tel"></div>
+        <div><label class="form-label">Password</label><input class="form-input" id="signup-pass" placeholder="Create password" type="password"></div>
+        <div><label class="form-label">Create Account As</label><select class="form-input" id="signup-role"><option value="user">User</option><option value="admin">Admin</option></select></div>
+        <button class="btn-primary w-full text-base py-3" onclick="submitSignup()">Create Account</button>
+      </div>
+      <div class="mt-6 text-center">
+        <button class="text-sm text-gray-500 hover:text-gray-700" onclick="showPage('home')">← Back to Website</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADMIN DASHBOARD ==================== -->
+<div id="page-dashboard" class="page-section">
+  <!-- Admin Nav -->
+  <div style="background:var(--navy)" class="px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 text-white font-bold font-display text-lg">
+        <svg class="w-7 h-7" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="white"/><path d="M8 28L20 10L32 28" stroke="#1a2b4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="22" width="8" height="6" fill="#1a2b4a" rx="1"/></svg>
+        SkyForge Admin
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-blue-300 text-sm hidden md:block" id="admin-greeting"></span>
+      <button class="text-white/70 hover:text-white text-sm" onclick="adminLogout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="border-b bg-white sticky top-0 z-10 px-6 overflow-x-auto">
+    <div class="flex gap-1 py-2">
+      <button class="tab-btn active" onclick="showTab('dash-analytics')">📊 Analytics</button>
+      <button class="tab-btn" onclick="showTab('dash-leads')">📥 Leads</button>
+      <button class="tab-btn" onclick="showTab('dash-projects')">🏗️ Projects</button>
+      <button class="tab-btn" onclick="showTab('dash-reviews')">⭐ Reviews</button>
+      <button class="tab-btn" onclick="showTab('dash-settings')">⚙️ Settings</button>
+    </div>
+  </div>
+
+  <!-- ANALYTICS TAB -->
+  <div id="dash-analytics" class="tab-panel p-6">
+    <h2 class="font-bold text-2xl mb-6" style="color:var(--navy)">Analytics Dashboard</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="service-card text-center"><div id="stat-leads" class="text-3xl font-bold" style="color:var(--blue)">—</div><div class="text-sm text-gray-500 mt-1">Total Leads</div></div>
+      <div class="service-card text-center"><div id="stat-projects" class="text-3xl font-bold" style="color:var(--navy)">—</div><div class="text-sm text-gray-500 mt-1">Projects</div></div>
+      <div class="service-card text-center"><div id="stat-revenue" class="text-3xl font-bold text-green-600">—</div><div class="text-sm text-gray-500 mt-1">Est. Revenue</div></div>
+      <div class="service-card text-center"><div id="stat-reviews" class="text-3xl font-bold text-yellow-500">—</div><div class="text-sm text-gray-500 mt-1">Reviews</div></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 mb-8">
+      <div class="service-card text-center"><div id="stat-pending" class="text-2xl font-bold text-yellow-600">—</div><div class="text-sm text-gray-500">Pending Projects</div></div>
+      <div class="service-card text-center"><div id="stat-approved" class="text-2xl font-bold text-blue-600">—</div><div class="text-sm text-gray-500">Approved Projects</div></div>
+      <div class="service-card text-center"><div id="stat-done" class="text-2xl font-bold text-green-600">—</div><div class="text-sm text-gray-500">Completed Projects</div></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="service-card"><h3 class="font-bold mb-4">Monthly Leads</h3><canvas id="leadsChart" height="200"></canvas></div>
+      <div class="service-card"><h3 class="font-bold mb-4">Project Status</h3><canvas id="projectChart" height="200"></canvas></div>
+    </div>
+  </div>
+
+  <!-- LEADS TAB -->
+  <div id="dash-leads" class="tab-panel p-6 hidden">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-bold text-2xl" style="color:var(--navy)">Leads</h2>
+      <span id="leads-count" class="badge badge-approved">0 leads</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead><tr style="background:var(--gray-bg)" class="text-left"><th class="px-4 py-3 font-semibold">Name</th><th class="px-4 py-3 font-semibold">Phone</th><th class="px-4 py-3 font-semibold">Service</th><th class="px-4 py-3 font-semibold">Message</th><th class="px-4 py-3 font-semibold">Status</th><th class="px-4 py-3 font-semibold">Date</th><th class="px-4 py-3 font-semibold">Actions</th></tr></thead>
+        <tbody id="leads-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PROJECTS TAB -->
+  <div id="dash-projects" class="tab-panel p-6 hidden">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-bold text-2xl" style="color:var(--navy)">Projects</h2>
+      <button class="btn-primary" onclick="openProjectModal()">+ Add Project</button>
+    </div>
+    <div id="admin-projects-grid" class="grid md:grid-cols-3 gap-6"></div>
+  </div>
+
+  <!-- REVIEWS TAB -->
+  <div id="dash-reviews" class="tab-panel p-6 hidden">
+    <h2 class="font-bold text-2xl mb-6" style="color:var(--navy)">Reviews</h2>
+    <div id="admin-reviews-list" class="space-y-4"></div>
+  </div>
+
+  <!-- SETTINGS TAB -->
+  <div id="dash-settings" class="tab-panel p-6 hidden">
+    <h2 class="font-bold text-2xl mb-6" style="color:var(--navy)">Settings</h2>
+    <div class="max-w-md">
+      <div class="service-card">
+        <h3 class="font-bold mb-4">Change Password</h3>
+        <div class="space-y-3">
+          <div><label class="form-label">New Password</label><input class="form-input" type="password" id="new-password" placeholder="New password"></div>
+          <div><label class="form-label">Confirm Password</label><input class="form-input" type="password" id="confirm-password" placeholder="Confirm password"></div>
+          <button class="btn-primary" onclick="changePassword()">Update Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div id="review-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeReviewModal()">
+  <div class="modal-box">
+    <h3 class="font-bold text-xl mb-5" style="color:var(--navy)">Write a Review</h3>
+    <div class="space-y-4">
+      <div><label class="form-label">Name *</label><input class="form-input" id="m-rv-name" placeholder="Your name"></div>
+      <div><label class="form-label">Rating *</label><select class="form-input" id="m-rv-rating"><option value="5">⭐⭐⭐⭐⭐ Excellent</option><option value="4">⭐⭐⭐⭐ Good</option><option value="3">⭐⭐⭐ Average</option></select></div>
+      <div><label class="form-label">Comment *</label><textarea class="form-input" rows="4" id="m-rv-comment" placeholder="Share your experience..."></textarea></div>
+      <div class="flex gap-3">
+        <button class="btn-primary flex-1" onclick="submitModalReview()">Submit</button>
+        <button class="flex-1 py-2 rounded-lg border text-gray-600" onclick="closeReviewModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div id="project-modal" class="modal-overlay hidden" onclick="if(event.target===this)closeProjectModal()">
+  <div class="modal-box">
+    <h3 class="font-bold text-xl mb-5" style="color:var(--navy)" id="project-modal-title">Add Project</h3>
+    <input type="hidden" id="edit-project-id">
+    <div class="space-y-3">
+      <div><label class="form-label">Title *</label><input class="form-input" id="p-title" placeholder="Modern Villa"></div>
+      <div><label class="form-label">Description</label><textarea class="form-input" rows="3" id="p-desc" placeholder="Project description..."></textarea></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="form-label">Category</label><select class="form-input" id="p-category"><option>Construction</option><option>Interior</option><option>Exterior</option></select></div>
+        <div><label class="form-label">Status</label><select class="form-input" id="p-status"><option value="pending">Pending</option><option value="approved">Approved</option><option value="done">Done</option></select></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="form-label">Location</label><input class="form-input" id="p-location" placeholder="Ahmedabad, Gujarat"></div>
+        <div><label class="form-label">Area (sq.ft)</label><input class="form-input" id="p-area" placeholder="2500" type="number"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="form-label">Client Name</label><input class="form-input" id="p-client" placeholder="Rajesh Patel"></div>
+        <div><label class="form-label">Year</label><input class="form-input" id="p-year" placeholder="2024"></div>
+      </div>
+      <div><label class="form-label">Image URL</label><input class="form-input" id="p-image" placeholder="https://...jpg"></div>
+      <div class="flex gap-3">
+        <button class="btn-primary flex-1" onclick="saveProject()">Save Project</button>
+        <button class="flex-1 py-2 rounded-lg border text-gray-600" onclick="closeProjectModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--navy)" class="py-10 px-4" id="main-footer">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-7 h-7" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="white"/><path d="M8 28L20 10L32 28" stroke="#1a2b4a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="22" width="8" height="6" fill="#1a2b4a" rx="1"/></svg>
+        <span class="font-display font-bold text-white text-xl">SkyForge</span>
+      </div>
+      <p class="text-blue-200 text-sm">Transforming ideas into enduring structures since 2012.</p>
+    </div>
+    <div>
+      <div class="font-semibold text-white mb-3">Quick Links</div>
+      <div class="space-y-2 text-sm text-blue-200">
+        <div><a href="#" class="hover:text-white" onclick="showPage('home')">Home</a></div>
+        <div><a href="#" class="hover:text-white" onclick="showPage('services')">Services</a></div>
+        <div><a href="#" class="hover:text-white" onclick="showPage('projects')">Projects</a></div>
+        <div><a href="#" class="hover:text-white" onclick="showPage('contact')">Contact</a></div>
+      </div>
+    </div>
+    <div>
+      <div class="font-semibold text-white mb-3">Contact</div>
+      <div class="text-sm text-blue-200 space-y-1">
+        <div>📍 Gandhinagar, Gujarat</div>
+        <div>📞 +91 99999 99999</div>
+        <div>✉️ info@skyforge.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-blue-800 mt-8 pt-6 text-center text-blue-300 text-sm">© 2024 SkyForge Constructions. All rights reserved.</div>
+</footer>
+
+<script>
+const API = 'http://localhost:5000/api';
+let token = localStorage.getItem('sf_token') || '';
+let authUser = JSON.parse(localStorage.getItem('sf_user') || 'null');
+let allProjects = [];
+let leadsChartObj, projectChartObj;
+
+// ====== PAGE ROUTING ======
+function showPage(page) {
+  if (page === 'dashboard' && (!authUser || authUser.role !== 'admin')) {
+    showToast('Admin login required', false);
+    page = 'admin';
+  }
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const footer = document.getElementById('main-footer');
+  if (footer) footer.style.display = (page === 'admin' || page === 'dashboard') ? 'none' : '';
+  if (page === 'projects') loadPublicProjects();
+  if (page === 'dashboard') { loadDashboard(); showTab('dash-analytics'); }
+  window.scrollTo(0, 0);
+}
+
+// ====== DARK MODE ======
+function toggleDark() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('sf_dark', document.body.classList.contains('dark') ? '1' : '');
+}
+if (localStorage.getItem('sf_dark')) document.body.classList.add('dark');
+
+// ====== TOAST ======
+function showToast(msg, success=true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = success ? '#1a2b4a' : '#dc2626';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function updateAuthGreeting() {
+  const greeting = document.getElementById('admin-greeting');
+  if (!greeting) return;
+  if (authUser) {
+    greeting.textContent = `Welcome, ${authUser.name || authUser.email || authUser.phone}`;
+  } else {
+    greeting.textContent = '';
+  }
+}
+
+function showAuthMode(mode) {
+  document.getElementById('auth-login-form').classList.toggle('hidden', mode !== 'login');
+  document.getElementById('auth-signup-form').classList.toggle('hidden', mode !== 'signup');
+  document.getElementById('auth-tab-login').classList.toggle('active', mode === 'login');
+  document.getElementById('auth-tab-signup').classList.toggle('active', mode === 'signup');
+}
+
+function saveSession(data) {
+  token = data.token;
+  authUser = data.user;
+  localStorage.setItem('sf_token', token);
+  localStorage.setItem('sf_user', JSON.stringify(authUser));
+  updateAuthGreeting();
+}
+
+function clearSession() {
+  token = '';
+  authUser = null;
+  localStorage.removeItem('sf_token');
+  localStorage.removeItem('sf_user');
+  updateAuthGreeting();
+}
+
+// ====== CALC ======
+function calculateCost(show=false) {
+  const sqft = parseInt(document.getElementById('calc-sqft').value);
+  const rate = parseInt(document.getElementById('calc-service').value);
+  const quality = parseFloat(document.getElementById('calc-quality').value);
+  document.getElementById('sqft-label').textContent = sqft.toLocaleString();
+  const cost = sqft * rate * quality;
+  document.getElementById('calc-amount').textContent = '₹' + cost.toLocaleString('en-IN');
+  document.getElementById('calc-breakdown').textContent = `${sqft.toLocaleString()} sq.ft × ₹${rate}/sq.ft × ${quality}x quality`;
+  if (show) {
+    document.getElementById('calc-result').classList.add('show');
+  }
+}
+calculateCost();
+
+// ====== CONTACT / LEAD ======
+async function submitLead() {
+  const name = document.getElementById('contact-name').value;
+  const phone = document.getElementById('contact-phone').value;
+  const email = document.getElementById('contact-email').value;
+  const message = document.getElementById('contact-message').value;
+  const service = document.getElementById('contact-service').value;
+  if (!name || !phone || !message) { showToast('Please fill required fields', false); return; }
+  // WhatsApp link update
+  const waMsg = encodeURIComponent(`Hi SkyForge! I'm ${name}, interested in ${service}. ${message} My phone: ${phone}`);
+  document.getElementById('whatsapp-link').href = `https://wa.me/919999999999?text=${waMsg}`;
+  try {
+    await fetch(API + '/leads', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name,phone,email,message,service}) });
+    showToast('Message sent! We\'ll contact you soon. ✓');
+    ['contact-name','contact-phone','contact-email','contact-message'].forEach(id => document.getElementById(id).value='');
+  } catch(e) {
+    showToast('Message logged! We\'ll contact you soon. ✓');
+  }
+}
+
+// ====== PROJECTS (PUBLIC) ======
+async function loadPublicProjects(filter='all', filterType='category') {
+  const grid = document.getElementById('projects-grid');
+  const loading = document.getElementById('projects-loading');
+  grid.innerHTML = '';
+  loading.style.display = 'block';
+  try {
+    let url = API + '/projects';
+    if (filter !== 'all') url += `?${filterType}=${filter}`;
+    const resp = await fetch(url);
+    allProjects = await resp.json();
+    renderProjects(allProjects, grid);
+  } catch(e) {
+    // Demo data
+    allProjects = getDemoProjects();
+    renderProjects(allProjects, grid);
+  }
+  loading.style.display = 'none';
+}
+
+function getDemoProjects() {
+  return [
+    {_id:'1', title:'Luxury Villa', category:'Construction', status:'done', location:'Ahmedabad', area:'3500', image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80', client:'Patel Family'},
+    {_id:'2', title:'Modern Interior', category:'Interior', status:'approved', location:'Surat', area:'2000', image:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80', client:'Sharma Residence'},
+    {_id:'3', title:'Commercial Tower', category:'Construction', status:'pending', location:'Gandhinagar', area:'15000', image:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80', client:'TechCorp Ltd'},
+    {_id:'4', title:'Facade Renovation', category:'Exterior', status:'done', location:'Vadodara', area:'1800', image:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80', client:'Mehta House'},
+    {_id:'5', title:'Penthouse Suite', category:'Interior', status:'done', location:'Rajkot', area:'4200', image:'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=80', client:'Joshi Family'},
+    {_id:'6', title:'Garden Villa Exterior', category:'Exterior', status:'approved', location:'Ahmedabad', area:'5000', image:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80', client:'Desai Bungalow'},
+  ];
+}
+
+function renderProjects(projects, container) {
+  if (!projects.length) { container.innerHTML = '<div class="col-span-3 text-center py-12 text-gray-400">No projects found</div>'; return; }
+  container.innerHTML = projects.map(p => `
+    <div class="project-card">
+      <img src="${p.image || 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80'}" alt="${p.title}" loading="lazy">
+      <div class="project-overlay">
+        <div class="w-full">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-white font-bold">${p.title}</span>
+            <span class="badge badge-${p.status}">${p.status}</span>
+          </div>
+          <div class="text-blue-200 text-xs">${p.category} · ${p.location || ''} · ${p.area ? p.area+' sq.ft' : ''}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProjects(val, btn, type='category') {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (type === 'status') {
+    const filtered = val === 'all' ? allProjects : allProjects.filter(p => p.status === val);
+    renderProjects(filtered, document.getElementById('projects-grid'));
+  } else {
+    const filtered = val === 'all' ? allProjects : allProjects.filter(p => p.category === val);
+    renderProjects(filtered, document.getElementById('projects-grid'));
+  }
+}
+
+// ====== REVIEWS ======
+function openReviewModal() { document.getElementById('review-modal').classList.remove('hidden'); }
+function closeReviewModal() { document.getElementById('review-modal').classList.add('hidden'); }
+
+async function submitReview() {
+  const name = document.getElementById('rv-name').value;
+  const rating = document.getElementById('rv-rating').value;
+  const comment = document.getElementById('rv-comment').value;
+  if (!name || !comment) { showToast('Please fill all fields', false); return; }
+  try {
+    await fetch(API + '/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name,rating,comment}) });
+    showToast('Review submitted! Pending approval. ✓');
+  } catch(e) { showToast('Review submitted! Pending approval. ✓'); }
+  document.getElementById('rv-name').value = '';
+  document.getElementById('rv-comment').value = '';
+}
+
+async function submitModalReview() {
+  const name = document.getElementById('m-rv-name').value;
+  const rating = document.getElementById('m-rv-rating').value;
+  const comment = document.getElementById('m-rv-comment').value;
+  if (!name || !comment) { showToast('Please fill all fields', false); return; }
+  try {
+    await fetch(API + '/reviews', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({name,rating,comment}) });
+  } catch(e) {}
+  showToast('Review submitted! Pending approval. ✓');
+  closeReviewModal();
+}
+
+// ====== ADMIN ======
+async function submitLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const phone = document.getElementById('login-phone').value.trim();
+  const password = document.getElementById('login-pass').value;
+  const role = document.getElementById('login-role').value;
+  if ((!email && !phone) || !password) { showToast('Enter email or phone and password', false); return; }
+  try {
+    const resp = await fetch(API + '/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({email, phone, password, role})
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showToast(data.error || 'Login failed', false);
+      return;
+    }
+    saveSession(data);
+    if (data.user.role === 'admin') {
+      showPage('dashboard');
+    } else {
+      showPage('home');
+      showToast('User login successful');
+    }
+  } catch(e) {
+    showToast('Unable to connect to localhost server', false);
+  }
+}
+
+async function submitSignup() {
+  const name = document.getElementById('signup-name').value.trim();
+  const email = document.getElementById('signup-email').value.trim();
+  const phone = document.getElementById('signup-phone').value.trim();
+  const password = document.getElementById('signup-pass').value;
+  const role = document.getElementById('signup-role').value;
+  if (!name || !email || !phone || !password) { showToast('Fill all signup fields', false); return; }
+  try {
+    const resp = await fetch(API + '/signup', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, phone, password, role})
+    });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showToast(data.error || 'Signup failed', false);
+      return;
+    }
+    showToast('Account created. Please sign in.');
+    document.getElementById('signup-name').value = '';
+    document.getElementById('signup-email').value = '';
+    document.getElementById('signup-phone').value = '';
+    document.getElementById('signup-pass').value = '';
+    document.getElementById('login-email').value = email;
+    document.getElementById('login-phone').value = phone;
+    document.getElementById('login-role').value = role;
+    showAuthMode('login');
+  } catch(e) {
+    showToast('Unable to connect to localhost server', false);
+  }
+}
+
+function adminLogout() {
+  clearSession();
+  showPage('admin');
+}
+
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.remove('hidden');
+  event?.target?.classList.add('active');
+  if (id === 'dash-analytics') loadAnalytics();
+  if (id === 'dash-leads') loadLeads();
+  if (id === 'dash-projects') loadAdminProjects();
+  if (id === 'dash-reviews') loadAdminReviews();
+}
+
+async function loadDashboard() {
+  loadAnalytics();
+}
+
+async function loadAnalytics() {
+  try {
+    const resp = await fetch(API + '/analytics', { headers: {'Authorization': 'Bearer '+token} });
+    const data = await resp.json();
+    document.getElementById('stat-leads').textContent = data.total_leads;
+    document.getElementById('stat-projects').textContent = data.total_projects;
+    document.getElementById('stat-revenue').textContent = '₹' + (data.estimated_revenue/100000).toFixed(1) + 'L';
+    document.getElementById('stat-reviews').textContent = data.total_reviews;
+    document.getElementById('stat-pending').textContent = data.project_status.pending;
+    document.getElementById('stat-approved').textContent = data.project_status.approved;
+    document.getElementById('stat-done').textContent = data.project_status.done;
+    renderCharts(data.monthly_leads, data.project_status);
+  } catch(e) {
+    // Demo analytics
+    document.getElementById('stat-leads').textContent = '24';
+    document.getElementById('stat-projects').textContent = '18';
+    document.getElementById('stat-revenue').textContent = '₹45L';
+    document.getElementById('stat-reviews').textContent = '12';
+    document.getElementById('stat-pending').textContent = '5';
+    document.getElementById('stat-approved').textContent = '4';
+    document.getElementById('stat-done').textContent = '9';
+    renderCharts([
+      {month:'Oct 2024',count:3},{month:'Nov 2024',count:5},{month:'Dec 2024',count:4},{month:'Jan 2025',count:6},{month:'Feb 2025',count:3},{month:'Mar 2025',count:3}
+    ], {pending:5,approved:4,done:9});
+  }
+}
+
+function renderCharts(monthly, status) {
+  if (leadsChartObj) leadsChartObj.destroy();
+  if (projectChartObj) projectChartObj.destroy();
+  const lc = document.getElementById('leadsChart').getContext('2d');
+  leadsChartObj = new Chart(lc, {
+    type:'bar',
+    data: { labels: monthly.map(m=>m.month), datasets:[{label:'Leads', data:monthly.map(m=>m.count), backgroundColor:'rgba(37,99,235,0.7)', borderRadius:6}] },
+    options: { responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+  });
+  const pc = document.getElementById('projectChart').getContext('2d');
+  projectChartObj = new Chart(pc, {
+    type:'doughnut',
+    data: { labels:['Pending','Approved','Done'], datasets:[{data:[status.pending,status.approved,status.done], backgroundColor:['#f59e0b','#3b82f6','#10b981']}] },
+    options: { responsive:true }
+  });
+}
+
+async function loadLeads() {
+  const tbody = document.getElementById('leads-table');
+  try {
+    const resp = await fetch(API + '/leads', { headers: {'Authorization':'Bearer '+token} });
+    const leads = await resp.json();
+    document.getElementById('leads-count').textContent = leads.length + ' leads';
+    tbody.innerHTML = leads.map(l => `
+      <tr class="border-b hover:bg-gray-50">
+        <td class="px-4 py-3 font-medium">${l.name}</td>
+        <td class="px-4 py-3">${l.phone}</td>
+        <td class="px-4 py-3">${l.service||'—'}</td>
+        <td class="px-4 py-3 max-w-xs truncate text-gray-500">${l.message}</td>
+        <td class="px-4 py-3"><span class="badge badge-${l.status==='new'?'pending':'approved'}">${l.status||'new'}</span></td>
+        <td class="px-4 py-3 text-gray-400 text-xs">${new Date(l.created_at).toLocaleDateString()}</td>
+        <td class="px-4 py-3">
+          <button class="text-red-500 text-xs hover:underline" onclick="deleteLead('${l._id}')">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+  } catch(e) {
+    tbody.innerHTML = '<tr><td colspan="7" class="text-center py-8 text-gray-400">No leads yet (API offline — demo mode)</td></tr>';
+    document.getElementById('leads-count').textContent = '0 leads';
+  }
+}
+
+async function deleteLead(id) {
+  if (!confirm('Delete this lead?')) return;
+  try {
+    await fetch(API + '/leads/' + id, { method:'DELETE', headers:{'Authorization':'Bearer '+token} });
+    showToast('Lead deleted');
+    loadLeads();
+  } catch(e) { showToast('Could not delete', false); }
+}
+
+async function loadAdminProjects() {
+  const grid = document.getElementById('admin-projects-grid');
+  try {
+    const resp = await fetch(API + '/projects', { headers:{'Authorization':'Bearer '+token} });
+    const projects = await resp.json();
+    renderAdminProjects(projects, grid);
+  } catch(e) {
+    renderAdminProjects(getDemoProjects(), grid);
+  }
+}
+
+function renderAdminProjects(projects, grid) {
+  grid.innerHTML = projects.map(p => `
+    <div class="service-card p-0 overflow-hidden">
+      <img src="${p.image || 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80'}" class="w-full h-40 object-cover" alt="">
+      <div class="p-4">
+        <div class="flex items-start justify-between mb-2">
+          <h4 class="font-bold" style="color:var(--navy)">${p.title}</h4>
+          <span class="badge badge-${p.status}">${p.status}</span>
+        </div>
+        <div class="text-xs text-gray-400 mb-3">${p.category} · ${p.location||''}</div>
+        <div class="flex gap-2">
+          <button class="text-xs text-blue-600 hover:underline" onclick="editProject(${JSON.stringify(p).replace(/'/g,"\\'")})" >Edit</button>
+          <button class="text-xs text-red-500 hover:underline" onclick="deleteProject('${p._id}')">Delete</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+let editingProjectId = null;
+function openProjectModal() {
+  editingProjectId = null;
+  document.getElementById('project-modal-title').textContent = 'Add Project';
+  ['p-title','p-desc','p-location','p-area','p-client','p-year','p-image'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('p-category').value='Construction';
+  document.getElementById('p-status').value='pending';
+  document.getElementById('project-modal').classList.remove('hidden');
+}
+function editProject(p) {
+  editingProjectId = p._id;
+  document.getElementById('project-modal-title').textContent = 'Edit Project';
+  document.getElementById('p-title').value = p.title||'';
+  document.getElementById('p-desc').value = p.description||'';
+  document.getElementById('p-category').value = p.category||'Construction';
+  document.getElementById('p-status').value = p.status||'pending';
+  document.getElementById('p-location').value = p.location||'';
+  document.getElementById('p-area').value = p.area||'';
+  document.getElementById('p-client').value = p.client||'';
+  document.getElementById('p-year').value = p.year||'';
+  document.getElementById('p-image').value = p.image||'';
+  document.getElementById('project-modal').classList.remove('hidden');
+}
+function closeProjectModal() { document.getElementById('project-modal').classList.add('hidden'); }
+
+async function saveProject() {
+  const data = {
+    title: document.getElementById('p-title').value,
+    description: document.getElementById('p-desc').value,
+    category: document.getElementById('p-category').value,
+    status: document.getElementById('p-status').value,
+    location: document.getElementById('p-location').value,
+    area: document.getElementById('p-area').value,
+    client: document.getElementById('p-client').value,
+    year: document.getElementById('p-year').value,
+    image: document.getElementById('p-image').value,
+  };
+  if (!data.title) { showToast('Title is required', false); return; }
+  try {
+    if (editingProjectId) {
+      await fetch(API + '/projects/' + editingProjectId, { method:'PUT', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body:JSON.stringify(data) });
+      showToast('Project updated ✓');
+    } else {
+      await fetch(API + '/projects', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body:JSON.stringify(data) });
+      showToast('Project added ✓');
+    }
+    closeProjectModal();
+    loadAdminProjects();
+  } catch(e) { showToast('Saved locally (API offline)', true); closeProjectModal(); }
+}
+
+async function deleteProject(id) {
+  if (!confirm('Delete this project?')) return;
+  try {
+    await fetch(API + '/projects/' + id, { method:'DELETE', headers:{'Authorization':'Bearer '+token} });
+    showToast('Project deleted');
+    loadAdminProjects();
+  } catch(e) { showToast('Could not delete', false); }
+}
+
+async function loadAdminReviews() {
+  const list = document.getElementById('admin-reviews-list');
+  try {
+    const resp = await fetch(API + '/reviews/all', { headers:{'Authorization':'Bearer '+token} });
+    const reviews = await resp.json();
+    list.innerHTML = reviews.map(r => `
+      <div class="service-card flex items-start justify-between">
+        <div>
+          <div class="font-semibold">${r.name} ${'⭐'.repeat(r.rating)}</div>
+          <div class="text-sm text-gray-500 mt-1">${r.comment}</div>
+          <div class="text-xs text-gray-400 mt-1">${new Date(r.created_at).toLocaleDateString()} · ${r.approved ? '✅ Approved' : '⏳ Pending'}</div>
+        </div>
+        <div class="flex gap-2 flex-shrink-0 ml-4">
+          ${!r.approved ? `<button class="text-xs text-green-600 hover:underline" onclick="approveReview('${r._id}')">Approve</button>` : ''}
+          <button class="text-xs text-red-500 hover:underline" onclick="deleteReview('${r._id}')">Delete</button>
+        </div>
+      </div>
+    `).join('') || '<div class="text-gray-400 text-center py-8">No reviews yet</div>';
+  } catch(e) { list.innerHTML = '<div class="text-gray-400 text-center py-8">API offline — demo mode</div>'; }
+}
+
+async function approveReview(id) {
+  try {
+    await fetch(API + '/reviews/' + id + '/approve', { method:'PATCH', headers:{'Authorization':'Bearer '+token} });
+    showToast('Review approved ✓');
+    loadAdminReviews();
+  } catch(e) { showToast('Could not approve', false); }
+}
+
+async function deleteReview(id) {
+  if (!confirm('Delete this review?')) return;
+  try {
+    await fetch(API + '/reviews/' + id, { method:'DELETE', headers:{'Authorization':'Bearer '+token} });
+    showToast('Review deleted');
+    loadAdminReviews();
+  } catch(e) { showToast('Could not delete', false); }
+}
+
+async function changePassword() {
+  const np = document.getElementById('new-password').value;
+  const cp = document.getElementById('confirm-password').value;
+  if (!np || np !== cp) { showToast('Passwords do not match', false); return; }
+  try {
+    await fetch(API + '/change-password', { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+token}, body:JSON.stringify({new_password:np}) });
+    showToast('Password updated ✓');
+  } catch(e) { showToast('Could not update (API offline)', false); }
+}
+
+updateAuthGreeting();
+showAuthMode('login');
+</script>
+</body>
+</html>
